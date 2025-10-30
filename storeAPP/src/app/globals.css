@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --success: 155 70% 36%;
+    --success-foreground: 157 39% 94%;
+    --warning: 43 100% 52%;
+    --warning-foreground: 43 100% 94%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 81% 96%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 1rem;
+
+    --gray-primary: var(--gray-500);
+
+    --gray-50: 210, 10%, 98%;
+    --gray-100: 210, 10%, 94%;
+    --gray-200: 210, 13%, 91%;
+    --gray-300: 216, 12%, 84%;
+    --gray-400: 218, 11%, 65%;
+    --gray-500: 210, 12%, 50%;
+    --gray-600: 210, 13%, 39%;
+    --blue-700: 217, 19%, 27%;
+    --gray-800: 210, 20%, 18%;
+    --gray-900: 210, 22%, 11%;
+
+    --blue-primary: var(--blue-700);
+    --blue-foreground: var(--blue-800);
+
+    --blue-50: 212, 100%, 97%;
+    --blue-100: 212, 100%, 93%;
+    --blue-200: 211, 100%, 87%;
+    --blue-300: 209, 100%, 78%;
+    --blue-400: 203, 93%, 65%;
+    --blue-500: 212, 92%, 61%;
+    --blue-600: 220, 92%, 56%;
+    --blue-700: 223, 84%, 48%;
+    --blue-800: 225, 79%, 40%;
+    --blue-900: 220, 78%, 32%;
+
+    --green-600: 155, 70%, 36%;
+
+    --yellow-600: 43, 100%, 52%;
+
+    --red-600: 0, 81%, 59%;
+
+    --chart-1: var(--blue-700);
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    --gray-50: 210, 22%, 11%;
+    --gray-100: 210, 20%, 18%;
+    --gray-200: 217, 19%, 27%;
+    --gray-300: 210, 13%, 39%;
+    --gray-400: 210, 12%, 50%;
+    --gray-500: 218, 11%, 65%;
+    --gray-600: 216, 12%, 84%;
+    --blue-700: 210, 10%, 89%;
+    --gray-800: 210, 10%, 94%;
+    --gray-900: 210, 10%, 98%;
+
+    --blue-50: 220, 78%, 32%;
+    --blue-100: 225, 79%, 40%;
+    --blue-200: 223, 84%, 48%;
+    --blue-300: 220, 92%, 56%;
+    --blue-400: 212, 92%, 61%;
+    --blue-500: 203, 93%, 65%;
+    --blue-600: 209, 100%, 78%;
+    --blue-700: 211, 100%, 87%;
+    --blue-800: 212, 100%, 93%;
+    --blue-900: 212, 100%, 97%;
+
+    --gray-primary: var(--blue-500);
+    --blue-primary: var(--blue-700);
+    --blue-foreground: var(--blue-800);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #fff;
+    --foreground: #0a0a0a;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}

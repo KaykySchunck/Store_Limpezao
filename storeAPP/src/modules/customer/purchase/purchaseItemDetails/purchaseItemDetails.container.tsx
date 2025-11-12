@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import PurchaseItemDetailsComponent from "./purchaseItemDetails.component";
 import { useStoreCustomizationsContext } from "@/modules/contexts/store-context/store-customer-customizations-context";
+import { useGetStoreByUrl } from "@/hooks/store/useGetStoreByUrl";
+import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { getItemWithImagesByIdService } from "@/services/itens.service";
 
@@ -15,6 +17,10 @@ export default function PurchaseItemDetailsContainer({
   const [item, setItem] = useState<any>(null); // Estado para armazenar o item e suas imagens
   const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
   const { catalogInfo, headerInfo } = useStoreCustomizationsContext();
+  // Obter loja pelo slug da URL para usar o número de WhatsApp salvo na loja
+  const params = useParams();
+  const storeUrl = typeof params?.url === "string" ? params.url : "";
+  const { store } = useGetStoreByUrl(storeUrl);
 
   // Busca o item e suas imagens pelo ID
   useEffect(() => {
@@ -64,6 +70,14 @@ export default function PurchaseItemDetailsContainer({
     toast.success(`${item.name} foi adicionado ao carrinho!`);
   };
 
+  // Normaliza número (mantém apenas dígitos) e adiciona DDI 55 se faltar
+  const buildWhatsAppLink = (text: string) => {
+    const raw = store?.whatsApp || "";
+    const digits = String(raw).replace(/\D/g, "");
+    const withDdi = digits.startsWith("55") ? digits : `55${digits}`;
+    return `https://wa.me/${withDdi}?text=${text}`;
+  };
+
   // Compra o item via WhatsApp
   const buyItemToWhatsApp = () => {
     if (!item) return;
@@ -72,7 +86,7 @@ export default function PurchaseItemDetailsContainer({
       item.name
     )}`;
 
-    const whatsappURL = `https://wa.me/5519993787066?text=${message}`;
+    const whatsappURL = buildWhatsAppLink(message);
 
     window.open(whatsappURL, "_blank");
   };

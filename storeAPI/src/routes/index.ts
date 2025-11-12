@@ -9,7 +9,9 @@ import S3Routes from "../application/s3/s3routes/s3.routes";
 import S3banner from "../application/s3/s3routes/banner.s3.routes";
 import S3item from "../application/s3/s3routes/item.s3.routes";
 import ImagesItens from "../application/images_itens/images_itens.routes";
-import stripeRoutes from "../application/stripe/stripe.routes";
+// Stripe desativado temporariamente.
+// Para reativar, descomente a linha abaixo e a rota correspondente mais abaixo.
+// import stripeRoutes from "../application/stripe/stripe.routes";
 
 const routes = Router();
 
@@ -23,6 +25,8 @@ routes.use("/S3", S3Routes);
 routes.use("/S3banner", S3banner);
 routes.use("/S3item", S3item);
 routes.use("/imagesItens", ImagesItens);
-routes.use("/stripe", stripeRoutes);
+// Stripe desativado temporariamente.
+// Para reativar as rotas da Stripe, descomente a linha abaixo:
+// routes.use("/stripe", stripeRoutes);
 
 export default routes;

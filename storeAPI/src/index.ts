@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import routes from "./routes/index";
-import stripeRoutes from "./application/stripe/stripe.routes";
+// Stripe desativado temporariamente.
+// Para reativar, descomente a linha abaixo e as configurações do webhook.
+// import stripeRoutes from "./application/stripe/stripe.routes";
 
 const app = express();
 
@@ -24,8 +26,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Configuração especial para webhook do Stripe (raw body)
-app.use("/api/stripe/webhook", express.raw({ type: "application/json" }));
+// Stripe desativado temporariamente.
+// Para reativar o webhook do Stripe, descomente a linha abaixo e garanta que venha ANTES do express.json():
+// app.use("/api/stripe/webhook", express.raw({ type: "application/json" }));
 
 // Middleware JSON para outras rotas
 app.use(express.json());
@@ -35,7 +38,9 @@ app.use("/api", routes);
 
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
-  console.log("Webhook endpoint: http://localhost:3001/api/stripe/webhook");
+  // Stripe desativado temporariamente.
+  // Para reativar, reexiba o log abaixo com a URL do webhook:
+  // console.log("Webhook endpoint: http://localhost:3001/api/stripe/webhook");
 });
 
 export { app };

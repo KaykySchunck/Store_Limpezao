@@ -18,24 +18,30 @@ export default function StoresPageComponent({
   setIsModalOpenCreate,
 }: StoresPageComponentProps) {
   const { handleCheckout, isLoading } = useStripeSignUp();
-  const [hasSubscription, setHasSubscription] = useState(false);
+  // Stripe desativada temporariamente: liberar criação de loja sem checagem de assinatura.
+  // Para reativar a checagem de assinatura, volte o estado inicial para false e reative os efeitos abaixo.
+  const [hasSubscription, setHasSubscription] = useState(true);
   const [isCheckingSubscription, setIsCheckingSubscription] = useState(true);
   const searchParams = useSearchParams();
 
-  useEffect(() => {
-    checkSubscription();
-  }, []);
+  // Stripe desativada temporariamente: não realizar checagem de assinatura no carregamento.
+  // Para reativar, descomente o bloco abaixo.
+  // useEffect(() => {
+  //   checkSubscription();
+  // }, []);
 
   // Recarregar verificação quando subscription=success
-  useEffect(() => {
-    const subscription = searchParams.get("subscription");
-    if (subscription === "success") {
-      // Aguardar um pouco para o webhook processar
-      setTimeout(() => {
-        checkSubscription();
-      }, 1000);
-    }
-  }, [searchParams]);
+  // Stripe desativada temporariamente: não reagendar checagem por query param.
+  // Para reativar, descomente o bloco abaixo.
+  // useEffect(() => {
+  //   const subscription = searchParams.get("subscription");
+  //   if (subscription === "success") {
+  //     // Aguardar um pouco para o webhook processar
+  //     setTimeout(() => {
+  //       checkSubscription();
+  //     }, 1000);
+  //   }
+  // }, [searchParams]);
 
   const checkSubscription = async () => {
     try {
@@ -78,12 +84,14 @@ export default function StoresPageComponent({
       <div className="flex items-start my-2 justify-between">
         <SearchStoreContainer />
         <div className="flex items-center gap-3">
-          {hasSubscription && (
-            <Button onClick={() => setIsModalOpenCreate(true)}>
-              Adicionar Loja
-            </Button>
-          )}
-          
+          {/* Stripe desativada temporariamente: botão de criar loja sempre visível.
+              Para reativar a exigência de assinatura, volte para a condição {hasSubscription && ( <Button>... ) } */}
+          <Button onClick={() => setIsModalOpenCreate(true)}>
+            Adicionar Loja
+          </Button>
+
+          {/* Stripe desativada temporariamente: esconder CTA de assinatura.
+              Para reativar, descomente o bloco abaixo.
           {!hasSubscription && !isCheckingSubscription && (
             <Button 
               onClick={handleSubscribe}
@@ -105,6 +113,7 @@ export default function StoresPageComponent({
               )}
             </Button>
           )}
+          */}
         </div>
       </div>
       <ListStoresContainer merchantId={merchantId} />

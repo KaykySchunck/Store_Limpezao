@@ -4,9 +4,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const dbHost = process.env.DB_HOST;
-const dbUser = process.env.DB_USER;
-const dbPassword = process.env.DB_PASS;
-const dbDatabase = process.env.DB_DATABASE;
+const dbUser = process.env.MYSQL_USER;
+const dbPassword = process.env.MYSQL_PASS;
+const dbDatabase = process.env.DB_MYSQL_NAME;
 
 if (!dbHost || !dbUser || !dbPassword || !dbDatabase) {
   throw new Error(

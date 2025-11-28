@@ -6,10 +6,11 @@ import { merchantSignInPayload } from "@/@types/sign-in";
 
 type InProps = {
   submit: (data: Partial<merchantSignInPayload>) => void;
+  isLoading?: boolean;
 };
 
 export function SignInComponent(Props: InProps) {
-  const { submit } = Props;
+  const { submit, isLoading = false } = Props;
 
   const { handleSubmit, control } = useFormStorage<merchantSignInPayload>({
     instance: "sign-in",
@@ -61,8 +62,8 @@ export function SignInComponent(Props: InProps) {
         )}
       />
 
-      <Button type="submit" variant="default">
-        Entrar
+      <Button type="submit" variant="default" disabled={isLoading}>
+        {isLoading ? "Entrando..." : "Entrar"}
       </Button>
     </form>
   );

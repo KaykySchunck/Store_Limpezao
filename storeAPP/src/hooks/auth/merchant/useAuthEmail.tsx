@@ -13,8 +13,10 @@ export function useAuthEmail() {
       const result = await loginAuthEmailService(authData);
       return result;
     } catch (err: any) {
-      setError("Erro ao autenticar. Tente novamente.");
-      return null;
+      const errorMessage = err?.message || "Erro ao autenticar. Tente novamente.";
+      setError(errorMessage);
+      // Propaga o erro para que o container possa tratá-lo
+      throw err;
     } finally {
       setIsLoading(false);
     }

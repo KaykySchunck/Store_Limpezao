@@ -26,36 +26,14 @@ const sequelize = new Sequelize(dbDatabase, dbUser, dbPassword, {
   }
 });
 
-// Função para criar o banco de dados se não existir
-const createDatabaseIfNotExists = async () => {
-  try {
-    // Conecta sem especificar o banco de dados
-    const tempSequelize = new Sequelize("mysql", dbUser, dbPassword, {
-      host: dbHost,
-      dialect: "mysql",
-      logging: false,
-    });
-
-    // Cria o banco de dados se não existir
-    await tempSequelize.query(`CREATE DATABASE IF NOT EXISTS \`${dbDatabase}\`;`);
-    console.log(`✅ Banco de dados '${dbDatabase}' verificado/criado com sucesso.`);
-    
-    await tempSequelize.close();
-  } catch (error) {
-    console.error('❌ Erro ao criar banco de dados:', error);
-    throw error;
-  }
-};
-
 // Função para inicializar o banco de dados
+// NOTA: Esta função assume que o banco de dados já existe.
+// Se você precisar criar o banco automaticamente, será necessário usar um usuário com privilégios de CREATE DATABASE.
 export const initializeDatabase = async () => {
   try {
-    // Primeiro cria o banco de dados se não existir
-    await createDatabaseIfNotExists();
-    
-    // Testa a conexão
+    // Testa a conexão com o banco de dados (assumindo que já existe)
     await sequelize.authenticate();
-    console.log('✅ Conexão com o banco de dados estabelecida com sucesso.');
+    console.log(`✅ Conexão com o banco de dados '${dbDatabase}' estabelecida com sucesso.`);
     
     // Sincroniza os modelos (cria as tabelas se não existirem)
     await sequelize.sync({ alter: true });

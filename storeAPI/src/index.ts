@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import routes from "./routes/index";
+import { initializeDatabase } from "./db/config/sequelize";
 // Stripe desativado temporariamente.
 // Para reativar, descomente a linha abaixo e as configurações do webhook.
 // import stripeRoutes from "./application/stripe/stripe.routes";
@@ -35,6 +36,15 @@ app.use(express.json());
 
 // Rotas
 app.use("/api", routes);
+
+// Inicializar banco de dados e criar tabelas se não existirem
+initializeDatabase()
+  .then(() => {
+    console.log("✅ Banco de dados inicializado com sucesso!");
+  })
+  .catch((error) => {
+    console.error("❌ Erro ao inicializar banco de dados:", error);
+  });
 
 app.listen(3001, () => {
   console.log("Server is running on port 3001");

@@ -49,46 +49,18 @@ export class EditStoreCustomizationsUseCase {
         await S3Controller.DeleteImage(reqDelete, resDelete);
       }
 
-      let imageBannerKey: string | null = null;
-
-      // Verifica se o imageBannerUrl é uma nova imagem (buffer ou arquivo)
-      if (imageBannerUrl instanceof Buffer || imageBannerUrl?.mimetype) {
-        // Simula o objeto `req` e `res` para usar o S3Controller.CreateImage
-        const reqUpload = {
-          file: {
-            buffer:
-              imageBannerUrl instanceof Buffer
-                ? imageBannerUrl
-                : imageBannerUrl.buffer,
-            originalname: `banner-${fk_storeId}-${Date.now()}`, // Nome único para o arquivo
-            mimetype: imageBannerUrl.mimetype || "image/jpeg", // Tipo MIME padrão
-          },
-        } as unknown as Request; // Força a tipagem para `Request`
-
-        const resUpload = {
-          status: (code: number) => ({
-            json: (data: any) => {
-              if (code === 201) {
-                // Se o upload for bem-sucedido, atualiza o imageBannerUrl com a URL do S3
-                imageBannerUrl = data.data.Location;
-                imageBannerKey = data.data.Key; // Salva a key do arquivo no S3
-              } else {
-                throw new AppError("Falha ao fazer upload da imagem", 500);
-              }
-            },
-          }),
-        } as unknown as Response; // Força a tipagem para `Response`
-
-        // Chama o S3Controller.CreateImage para fazer o upload da nova imagem
-        await S3Controller.CreateImage(reqUpload, resUpload);
-      }
-
       // Atualiza as customizações
       existingCustomizations.backgroundColorHeader = backgroundColorHeader;
       existingCustomizations.colorTextTitleHeader = colorTextTitleHeader;
       existingCustomizations.titleHeaderText = titleHeaderText;
-      existingCustomizations.imageBannerUrl = imageBannerUrl; // URL da imagem no S3
-      existingCustomizations.imageBannerKey = imageBannerKey; // Key do arquivo no S3
+      // Se imageBannerUrl for fornecido, atualiza; caso contrário, mantém o existente
+      if (imageBannerUrl !== undefined) {
+        // Se a URL mudou, limpa a key antiga (nova imagem pode ter sido enviada via outro endpoint)
+        if (imageBannerUrl && imageBannerUrl !== existingCustomizations.imageBannerUrl) {
+          existingCustomizations.imageBannerKey = null;
+        }
+        existingCustomizations.imageBannerUrl = imageBannerUrl || null;
+      }
       existingCustomizations.backgroundColorNavbar = backgroundColorNavbar;
       existingCustomizations.colorTextNavbar = colorTextNavbar;
       existingCustomizations.backgroundCatalog = backgroundCatalog;

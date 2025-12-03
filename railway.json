@@ -7,7 +7,10 @@
   "deploy": {
     "startCommand": "cd storeAPI && npm start",
     "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 10
+    "restartPolicyMaxRetries": 10,
+    "watchPatterns": [
+      "storeAPI/**"
+    ]
   }
 }
 

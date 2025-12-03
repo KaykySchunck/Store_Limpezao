@@ -46,8 +46,10 @@ initializeDatabase()
     console.error("❌ Erro ao inicializar banco de dados:", error);
   });
 
-app.listen(3001, () => {
-  console.log("Server is running on port 3001");
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
   // Stripe desativado temporariamente.
   // Para reativar, reexiba o log abaixo com a URL do webhook:
   // console.log("Webhook endpoint: http://localhost:3001/api/stripe/webhook");

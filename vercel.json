@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd storeAPP && npm install && npm run build",
+  "outputDirectory": "storeAPP/.next",
+  "installCommand": "cd storeAPP && npm install",
+  "framework": "nextjs",
+  "rootDirectory": "storeAPP"
+}
+

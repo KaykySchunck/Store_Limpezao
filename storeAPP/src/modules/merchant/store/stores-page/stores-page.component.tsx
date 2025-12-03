@@ -86,10 +86,10 @@ export default function StoresPageComponent({
         <div className="flex items-center gap-3">
           {/* Stripe desativada temporariamente: botão de criar loja sempre visível.
               Para reativar a exigência de assinatura, volte para a condição {hasSubscription && ( <Button>... ) } */}
-          <Button onClick={() => setIsModalOpenCreate(true)}>
-            Adicionar Loja
-          </Button>
-
+            <Button onClick={() => setIsModalOpenCreate(true)}>
+              Adicionar Loja
+            </Button>
+          
           {/* Stripe desativada temporariamente: esconder CTA de assinatura.
               Para reativar, descomente o bloco abaixo.
           {!hasSubscription && !isCheckingSubscription && (
